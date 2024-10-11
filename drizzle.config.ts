@@ -5,11 +5,22 @@ dotenv.config({
   path: ".env.local",
 })
 
-export default {
+// export default {
+//   schema: "./server/schema.ts",
+//   out: "./server/migrations",
+//   driver: "pg", // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso'
+//   dbCredentials: {
+//     connectionString: process.env.AUTH_DRIZZLE_URL!,
+//   },
+//   verbose: true,
+//   strict: true,
+// } satisfies Config
+
+export default ({
   schema: "./server/schema.ts",
   out: "./server/migrations",
-  driver: "pg", // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso'
+  dialect: "postgresql",
   dbCredentials: {
-    connectionString: process.env.POSTGRES_URL!,
+    url: process.env.AUTH_DRIZZLE_URL!,
   },
-} satisfies Config
+})
