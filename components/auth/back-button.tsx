@@ -1,9 +1,8 @@
 "use client"
-
-import { Link } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-export const BackButton =({
+export const BackButton = ({
     href,
     label,
 }:{
@@ -11,8 +10,10 @@ export const BackButton =({
     label: string
 }) =>{
     return(
-        <Button>
-            <Link aria-label={label} href={href}></Link>
+        <Button 
+            asChild variant={"link"} 
+            className="font-medium w-full">
+            <Link aria-label={label} href={href}>{label}</Link>
         </Button>
     )
 }
