@@ -11,7 +11,8 @@ export const BackButton = ({
 }) =>{
     return(
         <Button 
-            asChild variant={"link"} 
+            asChild 
+            variant={"link"} 
             className="font-medium w-full">
             <Link aria-label={label} href={href}>{label}</Link>
         </Button>

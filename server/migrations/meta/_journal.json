@@ -15,6 +15,20 @@
       "when": 1728658625379,
       "tag": "0001_huge_elektra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1729011193949,
+      "tag": "0002_robust_baron_strucker",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1729095326008,
+      "tag": "0003_wakeful_giant_girl",
+      "breakpoints": true
     }
   ]
 }
