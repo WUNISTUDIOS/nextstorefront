@@ -29,6 +29,34 @@
       "when": 1729095326008,
       "tag": "0003_wakeful_giant_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1729537863331,
+      "tag": "0004_magenta_fallen_one",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1729543622521,
+      "tag": "0005_fair_aaron_stack",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1729612882611,
+      "tag": "0006_condemned_harpoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1729615152229,
+      "tag": "0007_unknown_sersi",
+      "breakpoints": true
     }
   ]
 }

@@ -2,9 +2,9 @@
 import { createSafeActionClient } from "next-safe-action"
 import { loginSchema } from "@/types/login-schema"
 import { actionClient } from "@/lib/safe-actions"
-import { db } from "./db"
+import { db } from "../db"
 import {eq} from "drizzle-orm"
-import {users} from "./schema"
+import {users} from "../schema"
 
 const action = createSafeActionClient()
 
@@ -19,7 +19,7 @@ export const emailSignIn = actionClient.schema
             where:eq(users.email, email)
         })
         
-        if(existingUser?.email === email){
+        if(existingUser?.email !== email){
             return {error: "User not found"}
         }
 
