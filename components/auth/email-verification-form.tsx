@@ -15,34 +15,29 @@ export const EmailVerificationForm = () => {
 
     const handleVerificaton = useCallback(()=>{
         if(success || error) return
-        if(!token){ setError("Invalid token")
+        if(!token){ setError("Token not found")
             return 
         }
-        newVerification(token).then((data:{error?: string; success?: string}) => {
-            if(data.error){
-                setError(data.error)
-            }
-            if(data.success){
-                setSuccess(data.success)
-                router.push("auth/login")
-            }
+        newVerification(token).then((data)=>{
+            if(data.error){setError(data.error)}
+            if(data.success){setSuccess(data.success)
+                router.push("/auth/login")}
         })
     },[])
-
     useEffect(()=>{
         handleVerificaton()
     },[])
     return (
         <AuthCard 
-                    backButtonLabel="back to login" 
-                    backButtonHref="/auth/login" 
-                    cardTitle="verify your account"
-                >
-                <div className="flex items-center flex-col w-full justify-center">
-                    <p>{!success && !error? "verifying email.." : null}</p>
-                    <FormSuccess message={success}/>
-                    <FormError message={error}/>
-                </div>
+            backButtonLabel="back to login" 
+            backButtonHref="/auth/login" 
+            cardTitle="verify your account"
+        >
+            <div className="flex items-center flex-col w-full justify-center">
+                <p>{!success && !error ? "verifying email.." : null}</p>
+                <FormSuccess message={success}/>
+                <FormError message={error}/>
+            </div>
         </AuthCard>
     )
 }

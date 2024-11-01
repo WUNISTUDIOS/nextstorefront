@@ -1,5 +1,4 @@
 "use server"
-import { error } from "console"
 import {db} from "../db"
 import { emailTokens, users } from "../schema"
 import { eq } from "drizzle-orm"
@@ -7,10 +6,10 @@ import { eq } from "drizzle-orm"
 export const getVerificationTokenByEmail = async (email: string) => {
     try{
         const verificationToken = await db.query.emailTokens.findFirst({
-            where: eq(emailTokens, email)
+            where: eq(emailTokens.token, email)
         })
         return verificationToken
-    }catch(e){
+    }catch(error){
         return null
     }
 }
@@ -35,7 +34,7 @@ export const newVerification = async (token: string) => {
         where: eq(users.email, existingToken.email)
     })
     if(!existingUser) return {error: "email not found"}
-    await db.update(users).set({emailVerified: new Date(), email: existingToken.email,})
+    await db.update(users).set({emailVerified: new Date(), email: existingToken.email})
     await db.delete(emailTokens).where(eq(emailTokens.id, existingToken.id))
     return {success: "email verified"}
 }
