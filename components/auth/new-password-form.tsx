@@ -15,59 +15,45 @@ import { cn } from "@/lib/utils"
 import { useState } from "react"
 import { FormSuccess } from "./form-success"
 import { FormError } from "./form-error"
+import { NewPasswordSchema } from "@/types/new-password-schema"
+import { newPassword } from "@/server/actions/new-password"
+import { useSearchParams } from "next/navigation"
 
-export default function LoginForm(){
-
-    const form = useForm({
-        resolver:zodResolver(loginSchema),
+export default function NewPasswordForm(){
+    const form = useForm<z.infer<typeof NewPasswordSchema>>({
+        resolver:zodResolver(NewPasswordSchema),
         defaultValues: {
-            email: "",
             password: "",
         }
     })
 
+    const searchParams = useSearchParams()
+    const token = searchParams.get("token")
+
     const [error, setError] = useState<string>("")
     const [success, setSuccess] = useState<string>("")
-    const {execute, status} = useAction(emailSignIn,{
+    const {execute, status} = useAction(newPassword,{
         onSuccess(data){
             if(data?.error) setError(data.error)
             if(data?.success){setSuccess(data.success)}
         }
     })
 
-    const onSubmit =  (values: z.infer<typeof loginSchema>) => {
-        execute(values)
+    const onSubmit =  (values: z.infer<typeof NewPasswordSchema>) => {
+        execute({password: values.password, token})
     }
 
     return(
         <AuthCard 
-            cardTitle="welcome!" 
-            backButtonHref="/auth/register" 
-            backButtonLabel="create a new account"
+            cardTitle="Enter new password!" 
+            backButtonHref="/auth/login" 
+            backButtonLabel="back to login"
             showSocials
             >
                 <div>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             <div>
-                                <FormField
-                                    control={form.control} 
-                                    name="email"
-                                    render={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                        <Input {...field} 
-                                            placeholder="your email@email.com" 
-                                            type="email" 
-                                            autoComplete="email"/>
-                                        </FormControl>
-                                        <FormDescription />
-                                        <FormMessage />
-                                        <FormControl />
-                                    </FormItem>
-                                    )}
-                                />
                                 <FormField
                                     control={form.control} 
                                     name="password"
@@ -77,7 +63,8 @@ export default function LoginForm(){
                                         <FormControl>
                                         <Input {...field} 
                                             placeholder="**********" 
-                                            type="password" 
+                                            type="password"
+                                            disabled={status === "executing"}
                                             autoComplete="current-password"/>
                                         </FormControl>
                                         <FormDescription />
@@ -97,7 +84,7 @@ export default function LoginForm(){
                                 className={cn("w-full", 
                                 status === "executing" ? "animated-pulse" : ""
                             )}>
-                                {"Login"}
+                                Reset Password
                             </Button>
                         </form>
                     </Form> 
